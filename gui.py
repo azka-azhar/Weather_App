@@ -1,4 +1,6 @@
 import customtkinter as ctk
+from tkinter import messagebox
+from weather import get_weather
 BG_COLOR = "#0F172A"          # Window Background
 FRAME_COLOR = "#1E293B"       # Main Frame
 CARD_COLOR = "#334155"        # Result Frame
@@ -7,6 +9,7 @@ BUTTON_HOVER = "#1D4ED8"      # Button Hover
 ENTRY_COLOR = "#475569"       # Entry Background
 TEXT_COLOR = "#F8FAFC"        # White Text
 LABEL_COLOR = "#93C5FD"       # Light Blue Labels
+
 # ---------------- Appearance ----------------
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
@@ -14,7 +17,7 @@ ctk.set_default_color_theme("blue")
 # ---------------- Window ----------------
 app = ctk.CTk()
 app.title("Weather App")
-app.geometry("700x600")
+app.geometry("700x650")
 app.resizable(False, False)
 app.configure(fg_color=BG_COLOR)
 
@@ -47,6 +50,36 @@ city_entry = ctk.CTkEntry(
 )
 city_entry.pack(side="left", padx=10)
 
+def search_weather():
+    city=city_entry.get().strip()
+    weather =get_weather(city)
+    if weather is None:
+        messagebox.showerror("Error! ,City Not Found.")
+        return
+    for key in weather:
+        label_widgets[key].configure(text=str(weather[key]))
+    label_widgets["Chance of Rain"].configure(
+    text=f"{weather['Chance of Rain']}%"
+    )
+    label_widgets["Chance of Snow"].configure(
+    text=f"{weather['Chance of Snow']}%"
+    )
+    if weather["Will It Rain?"] == 1:
+        rain = "Yes"
+    else:
+        rain = "No"
+    label_widgets["Will It Rain?"].configure(text=rain)
+
+    if weather["Will It Snow?"] == 1:
+        snow = "Yes"
+    else:
+        snow = "No"
+    label_widgets["Will It Snow?"].configure(text=snow)
+
+    label_widgets["Humidity"].configure(
+    text=f"{weather['Humidity']}%"
+    )
+
 search_btn = ctk.CTkButton(
     search_frame,
     text="Search",
@@ -56,6 +89,7 @@ search_btn = ctk.CTkButton(
     fg_color=BUTTON_COLOR,
     hover_color=BUTTON_HOVER,
     text_color="white",
+    command=search_weather
 )
 search_btn.pack(side="left")
 
