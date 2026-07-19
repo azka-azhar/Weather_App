@@ -8,8 +8,7 @@
 
 import os
 from dotenv import load_dotenv
-import requests
-
+import requests 
 load_dotenv()
 API_KEY = os.getenv("API_KEY")
 
@@ -44,6 +43,8 @@ def get_weather(city):
 
     }
     return weather
+
+   
 
 # weather=get_weather("toronto")
 # if weather:
