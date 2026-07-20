@@ -144,5 +144,5 @@ Through this project I learned:
 
 ## 👩‍💻 Contributors
 
-**Alishba Khan**  [GitHub:https://github.com/Alishba964]
-**Azka Azhar**    [Github:ttps://github.com/azka-azhar]
+-**Alishba Khan**  [GitHub:https://github.com/Alishba964]
+-**Azka Azhar**    [Github:https://github.com/azka-azhar]
